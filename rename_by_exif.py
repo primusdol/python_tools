@@ -57,9 +57,8 @@ class renumber_photo_files(object):
       print('mv', f1, f2)
   
   def rename_files(self):
-    n = len(list(self.__iter__()))
-    if n > 0:
-      if re.search(r'y|yes',input(f'Are you sure to rename {n} files ? ').lower()): 
+    if len(self.rlist) > 0:
+      if re.search(r'y|yes',input(f'Are you sure to rename {len(self.rlist)} files ? ')): 
         for f1, f2 in self.__iter__():
           shutil.move(f1, f2)
         print('done')
@@ -67,4 +66,5 @@ class renumber_photo_files(object):
         print('aborted')      
 
 if __name__ == '__main__':
-  renumber_photo_files(path='/Users/primus/photos')
+#  renumber_photo_files(path='/Users/primus/photos')
+  renumber_photo_files(path='/Users/rudi/Pictures/Internet')
