@@ -4,6 +4,7 @@ Rename photo files in a directory with year and follow number
 Format yyyy-nnnn.<ext>
 Use exifread to number the photos in correct date order
 
+20200724  1.3  primus  minor change for readability
 20200617  1.2  primus  converted to class
 20190323  1.1  primus  changed path and converted file extension to lowercase
 20161106  1.0  primus  fixed a bug if same follow number exists
@@ -66,5 +67,4 @@ class renumber_photo_files(object):
         print('aborted')      
 
 if __name__ == '__main__':
-#  renumber_photo_files(path='/Users/primus/photos')
-  renumber_photo_files(path='/Users/rudi/Pictures/Internet')
+  renumber_photo_files(path='/Users/primus/photos')
