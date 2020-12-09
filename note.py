@@ -23,7 +23,7 @@ class notes(object):
     self.args   = args
     self.files  = []
     self.report = []
-    self.dir = os.path.join('/Users/rudi/notes')                                                   # directory with note files
+    self.dir = os.path.join('/Users/primus/notes')                                                   # directory with note files
     self.db  = os.path.join(self.dir, 'notes{}.db'.format(datetime.datetime.now().strftime('%Y'))) # current note file
     for db in os.listdir(self.dir):
       if re.search ('notes[0-9]{4}.db', db):
