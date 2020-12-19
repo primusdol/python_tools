@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 '''
-note.py            add note snippets to a file
-note.py -g regexp  grep items from the saved snippets
+note.py            add snippets to a file
+note.py -s regexp  search the the saved snippets
 
 
 20201213 1.9  primus  with option to attach files to notes
