@@ -1,7 +1,5 @@
-
 ### 20250314-1748 first snippet
 this is my first snippet
-
 
 ### 20250314-1751 python args
   parser = argparse.ArgumentParser('note snippets')
@@ -12,8 +10,21 @@ this is my first snippet
   parser.add_argument('keywords', nargs='*',                    help='create new note with these keywords')
   args = parser.parse_args()
 
-
-### 20250314-1802 git upload
+### 20250314-1802 git push
 git add .
 git commit -m notes
 git push origin main
+
+### 20250314-1925 pylint
+
+$ pylint note.py --indent-string "  " --max-line-length 140
+************* Module note
+note.py:91:0: C0301: Line too long (151/140) (line-too-long)
+note.py:31:12: W0621: Redefining name 'args' from outer scope (line 94) (redefined-outer-name)
+note.py:44:18: W0621: Redefining name 'args' from outer scope (line 94) (redefined-outer-name)
+note.py:63:15: W0621: Redefining name 'args' from outer scope (line 94) (redefined-outer-name)
+note.py:76:13: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 9.23/10 (previous run: 8.79/10, +0.44)
+
