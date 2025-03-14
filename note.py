@@ -18,7 +18,7 @@ You can edit the '--file' argument to your preferred file location and name
 20150722 1.1  primus  keyword argumenten included
 20150715 1.0  primus  port from perl
 '''
-__version__ = '2.2'
+__version__ = '2.3'
 
 import re
 import os
