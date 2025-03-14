@@ -1,0 +1,19 @@
+
+### 20250314-1748 first snippet
+this is my first snippet
+
+
+### 20250314-1751 python args
+  parser = argparse.ArgumentParser('note snippets')
+  parser.add_argument('-l', '--line',    action='store_true',   help='show only lines containing the search items')
+  parser.add_argument('-s', '--search',  action='append',       help='add one or more search items, all items must be found in a snippet')
+  parser.add_argument('-f', '--file',    type=str, default='notes.txt', help='file to store the snippets, change this to your preferred file location')  
+  parser.add_argument('-v', '--version', action='version',      version='%(prog)s ' + __version__)
+  parser.add_argument('keywords', nargs='*',                    help='create new note with these keywords')
+  args = parser.parse_args()
+
+
+### 20250314-1802 git upload
+git add .
+git commit -m notes
+git push origin main

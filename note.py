@@ -11,6 +11,7 @@ note.py -s searchstring               search items from the saved snippets
 
 You can edit the '--file' argument to your preferred file location and name
 
+20250314 2.3  primus  cleaned up
 20250314 2.2  primus  simplified to 1 file system
 20230412 2.1  primus  strip all non printable characters
 20201221 2.0  primus  now with multiple search items
@@ -26,12 +27,12 @@ import string
 
   
 def newnote(args):
-  header = f'### {args.stamp} {' '.join(map(str, args.keywords))}'
+  header = f'### {datetime.datetime.now().strftime("%Y%m%d-%H%M")} {' '.join(map(str, args.keywords))}'
   print('enter text for the new note, end with met ctrl-z or ctrl-d')
   with open(args.file, 'a') as fh:
     fh.write(f'\n{header}\n')
     for line in sys.stdin:
-      line = ''.join(filter(lambda x: x in args.printable, line))
+      line = ''.join(filter(lambda x: x in set(string.printable), line))
       fh.write(line)
 
 def searchsnippet(args, snippet):
@@ -48,7 +49,7 @@ def searchsnippet(args, snippet):
       return
   for i ,line in enumerate(snippet):
     if i in line_cnt or not args.line: # report line if it contains any of the search items or is the first line
-       args.report.append(line)
+       print(line)
 
 def searchfile(args):
   snippet = []
@@ -57,9 +58,9 @@ def searchfile(args):
     for line in fh:
       cnt += 1
       try:
-        line=line.decode('utf-8', 'replace')
-        line=line.rstrip()
-        line = ''.join(filter(lambda x: x in args.printable, line))
+        line = line.decode('utf-8', 'replace')
+        line = line.rstrip()
+        line = ''.join(filter(lambda x: x in set(string.printable), line))
       except Exception as e:
         line = f'problem decoding to utf-8 in file {args.file} line {cnt}'
         print(line)
@@ -75,7 +76,7 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser('note snippets')
   parser.add_argument('-l', '--line',    action='store_true',   help='show only lines containing the search items')
   parser.add_argument('-s', '--search',  action='append',       help='add one or more search items, all items must be found in a snippet')
-  parser.add_argument('-f', '--file',    type=str, default='P:/repo/notes.txt', help='file to store the snippets, change this to your preferred file location')  
+  parser.add_argument('-f', '--file',    type=str, default='notes.txt', help='file to store the snippets, change this to your preferred file location')  
   parser.add_argument('-v', '--version', action='version',      version='%(prog)s ' + __version__)
   parser.add_argument('keywords', nargs='*',                    help='create new note with these keywords')
   args = parser.parse_args()
@@ -87,14 +88,10 @@ if __name__ == '__main__':
   if not os.path.isfile(args.file):
     if not input(f'file {args.file} does not exist, start with an empty file (Y/N)').lower() in ('yes','y','ja','j'):
       exit()
-      
-  args.report = []
-  args.printable = set(string.printable)
-  args.stamp  = datetime.datetime.now().strftime("%Y%m%d-%H%M")
-  if args.search:           # search in notes
-    for i in args.keywords: # append all unspecified keyword arguments to the search items, all must be found in the snipped
-      args.search.append(i)
+
+  if args.search:                      # search in notes
+    args.search.extend(args.keywords)  # extend all unspecified keyword arguments to the search items, all must be found in the snipped
     searchfile(args) 
-  else:                          # add new note
+  else:                                # add new note
     newnote(args)
-  print('\n'.join(map(str, args.report)))
+
