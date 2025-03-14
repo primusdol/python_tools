@@ -40,14 +40,14 @@ def searchsnippet(args, snippet):
   line_cnt = [0, ]
   for j, s in enumerate(args.search):
     hit.append(False)
-    for i ,line in enumerate(snippet):
+    for i, line in enumerate(snippet):
       if re.search(s, line, re.I):   # ignore case
         hit[j] = True
         line_cnt.append(i)
   for h in hit:
     if not h:  # block must contain all search items
       return
-  for i ,line in enumerate(snippet):
+  for i, line in enumerate(snippet):
     if i in line_cnt or not args.line: # report line if it contains any of the search items or is the first line
        print(line)
 
